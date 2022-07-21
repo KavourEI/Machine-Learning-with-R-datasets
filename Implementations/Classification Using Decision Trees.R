@@ -34,3 +34,14 @@ credit_predict <- predict(credit_model, credit_test)
 CrossTable(credit_test$default, credit_predict,
            prop.chisq = FALSE, prop.c = FALSE, prop.r = FALSE,
            dnn = c('Actual Default', 'Preedicted Default'))
+
+# Bossting the tree to increase performance
+credit_boost10 <- C5.0(credit_train[-17], as.factor(credit_train$default),
+                       trials = 10)
+credit_boost10
+summary(credit_boost10)
+
+credit_boost10_pred <- predict(credit_boost10, credit_test)
+CrossTable(credit_test$default, credit_boost10_pred,
+           prop.chisq = FALSE, prop.c = FALSE, prop.r = FALSE,
+           dnn = c('Actual Default', 'Predicted Default'))
